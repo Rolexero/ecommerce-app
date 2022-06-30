@@ -13,3 +13,23 @@
     justify-self: center;
     font-weight: 600;
 }
+
+.homepage {
+    width: 100vw;
+    height: 100vh;
+}
+
+.about-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.contact-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.shop-page {
+    width: 100vw;
+    height: 100vh;
+}
