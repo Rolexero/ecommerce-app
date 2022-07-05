@@ -1,9 +1,10 @@
 import React from "react";
+import "./contact-page.styles.scss"
  
 
 const ContactPage = () => {
     return (
-        <div className="shop-page">
+        <div className="contact-page">
             contact-page
         </div>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Navbar.styles.scss"
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -12,6 +13,7 @@ const Navbar = () => {
       <Link to="/shop" className='links'>Shop</Link>
       <Link to="/about" className='links'>About Us</Link>
       <Link to="/contact" className='links'>Contact Us</Link>
+      <Link to="/signin" className='links'>Sign In</Link>
     </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
