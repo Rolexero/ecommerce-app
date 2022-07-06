@@ -1,7 +1,9 @@
 import React from 'react'
+import "./Navbar.styles.scss"
+import { auth } from '../../firebase/firebase.utils';
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({currentUser}) => {
   return (
   <div className="navbar bg-base-100">
     <div className="flex-1">
@@ -12,6 +14,10 @@ const Navbar = () => {
       <Link to="/shop" className='links'>Shop</Link>
       <Link to="/about" className='links'>About Us</Link>
       <Link to="/contact" className='links'>Contact Us</Link>
+      {
+        currentUser ? <div onClick={() => auth.signOut()} className='links-btn'>Sign Out</div> : <Link to="/signin" className='links'>Sign In</Link>
+      }
+      
     </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
