@@ -8,8 +8,20 @@ const Signin = () => {
         email: "", password: ""
     })
 
-    function handleSubmit (event) {
+    const handleSubmit = async event => {
         event.preventDefault()
+        const {email, password} = signinData;
+        try {
+            
+           await auth.signInWithEmailAndPassword(email, password)
+            setSigninData({
+                email: "",
+                password: ""
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     function handleChange(event) { 
@@ -25,7 +37,7 @@ const Signin = () => {
     return (
         <div className="signin">
             <h1 className="heading">Sign In</h1>
-            <form className="form" onChange={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <input type="email" name="email" onChange={handleChange} placeholder="Email" value={signinData.email} required/>
                 <input type="password" onChange={handleChange} name="password" placeholder="Password" value={signinData.password} required />
                 <div className="btn-container">
