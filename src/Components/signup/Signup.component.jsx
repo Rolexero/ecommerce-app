@@ -1,41 +1,69 @@
-import {React, useEffect, useState} from "react";
+import {React, useState} from "react";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils"
+
 import "./signup.styles.scss"
 
 const Signup = () => {
     const [formData, setFormData] = useState({
-        firstname: "", 
-        lastname: "",
+        displayName: "", 
         email: "",
         password: "",
         confirmPassword: ""
     }) 
 
     
-    function handleSubmit (event) {
+     const handleSubmit = async event => {
         event.preventDefault()
-    } 
+        const {displayName, email, password, confirmPassword} = formData;
+
+        if(password !== confirmPassword) {
+            alert("passwords don't match")
+            return;
+        }
+
+        try {
+            const {user} = await auth.createUserWithEmailAndPassword(
+                email,
+                password
+            )
+
+           await createUserProfileDocument(user, {displayName})
+            setFormData ({
+               displayName: '',
+               email: '',
+               password: '',
+               confirmPassword: ''
+            })
+
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     function handleChange (event) {
+        const {name, value} = event.target
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
-                [event.target.name]: event.target.value
-                
+               [name]:value           
             }
         })
     } 
 
+    const { displayName,  email, password, confirmPassword } = formData;
 
     return (
+        
         <div className="sign-up">
             <h1 className="heading">Create New Account</h1>
-            <form className="form" onChange={handleSubmit}>
-                <input type="text" name="firstname" placeholder="FirstName" onChange={handleChange} value={formData.firstname} required />
-                <input type="text" name="lastname" placeholder="LastName" onChange={handleChange}  value={formData.lastname} required />
-                <input type="email" name="email" placeholder="Email" onChange={handleChange}  value={formData.email} required/>
-                <input type="password" name="password" placeholder="Password" onChange={handleChange}  value={formData.password} required /> 
-                <input type="Password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange}  value={formData.confirmPassword} required />
+            <form className="form" onSubmit={handleSubmit}>
+                <input type="text" name="displayName" placeholder="Display Name" onChange={handleChange} value={displayName} required />
+                <input type="email" name="email" placeholder="Email" onChange={handleChange}  value={email} required/>
+                <input type="password" name="password" placeholder="Password" onChange={handleChange}  value={password} required /> 
+                <input type="Password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange}  value={confirmPassword} required />
                 <button type="submit" className="submit-btn">Sign up</button>
             </form>
         </div>
